@@ -2,62 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Client Integration Test</title>
+  <title>ACR Client Action Buttons</title>
   <script type="text/javascript" src="./wpn_client.js"></script>
   <style>
     html, body {
-      width: 400px;
-      height: 365px;
       margin: 0;
       padding: 0;
+      width: 400px;
+      height: 365px;
+      background: #f0f0f0;
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      text-align: center;
-      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .container {
-      padding: 20px;
+      text-align: center;
     }
 
     h2 {
+      font-size: 16px;
       margin-bottom: 20px;
-      font-size: 18px;
     }
 
-    .btn {
+    button {
       display: block;
+      width: 260px;
       margin: 10px auto;
-      padding: 10px 20px;
+      padding: 10px;
       font-size: 14px;
-      color: #fff;
       background-color: #0072ce;
+      color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 5px;
       cursor: pointer;
     }
 
-    .btn:hover {
+    button:hover {
       background-color: #005fa3;
     }
   </style>
 </head>
-
 <body>
+
   <div class="container">
-    <h2>Client Shortcut Test</h2>
+    <h2>Client Shortcuts</h2>
 
-    <button class="btn" onclick="nodeClient.openBrowser('https://www.americascardroom.eu')">
-      Open Browser
-    </button>
-
-    <button class="btn" onclick="nodeClient.loginByExternal('user821', 'password')">
-      Login with user821
-    </button>
-
-    <button class="btn" onclick="nodeClient.openTournamentLobby('SitGo', 5179361)">
-      Open Big Lobby (TID 5179361)
-    </button>
+    <button onclick="nodeClient.onClickRewards()">Open Rewards</button>
+    <button onclick="nodeClient.onClickSettings()">Open Settings</button>
+    <button onclick="nodeClient.openTournamentLobby('Scheduled', 37005284)">Open Tournament Lobby</button>
   </div>
+
 </body>
 </html>
