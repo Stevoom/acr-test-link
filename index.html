@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ACR Client Launcher</title>
+  <title>Client Integration Test</title>
+  <script type="text/javascript" src="./wpn_client.js"></script>
   <style>
     html, body {
       width: 400px;
@@ -10,8 +11,7 @@
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      background-color: #f8f8f8;
-      color: #333;
+      background-color: #f4f4f4;
       text-align: center;
       box-sizing: border-box;
     }
@@ -21,14 +21,14 @@
     }
 
     h2 {
-      font-size: 18px;
       margin-bottom: 20px;
+      font-size: 18px;
     }
 
     .btn {
-      display: inline-block;
+      display: block;
+      margin: 10px auto;
       padding: 10px 20px;
-      margin: 8px;
       font-size: 14px;
       color: #fff;
       background-color: #0072ce;
@@ -40,57 +40,24 @@
     .btn:hover {
       background-color: #005fa3;
     }
-
-    .note {
-      margin-top: 16px;
-      font-size: 12px;
-      color: #777;
-    }
   </style>
-
-  <!-- WPN client injection script -->
-  <script type="text/javascript" src="./wpn_client.js"></script>
-
-  <script>
-    const nc = window.nodeClient;
-
-    function openTournament() {
-      if (nc?.openTournamentLobby) {
-        nc.openTournamentLobby("Scheduled", 37002969);
-      } else {
-        console.error("Tournament handler not found");
-      }
-    }
-
-    function openSettings() {
-      if (nc?.onClickSettings) {
-        nc.onClickSettings();
-      } else {
-        console.warn("Settings handler not available");
-      }
-    }
-
-    function openRewards() {
-      if (nc?.onClickRewards) {
-        nc.onClickRewards();
-      } else {
-        console.warn("Rewards handler not available");
-      }
-    }
-  </script>
 </head>
 
 <body>
   <div class="container">
     <h2>Client Shortcut Test</h2>
 
-    <button class="btn" onclick="openTournament()">Open Tournament Lobby</button>
-    <button class="btn" onclick="openSettings()">Open Settings</button>
-    <button class="btn" onclick="openRewards()">Open Rewards</button>
+    <button class="btn" onclick="nodeClient.openBrowser('https://www.americascardroom.eu')">
+      Open Browser
+    </button>
 
-    <div class="note">
-      Buttons use <code>nodeClient</code> to trigger client-side actions.
-    </div>
+    <button class="btn" onclick="nodeClient.loginByExternal('user821', 'password')">
+      Login with user821
+    </button>
+
+    <button class="btn" onclick="nodeClient.openTournamentLobby('SitGo', 5179361)">
+      Open Big Lobby (TID 5179361)
+    </button>
   </div>
 </body>
 </html>
