@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>ACR Client Shortcuts</title>
+  <meta charset="UTF-8">
+  <title>ACR Client Action Buttons</title>
+  <script type="text/javascript" src="./wpn_client.min.js"></script>
   <style>
     html, body {
       margin: 0;
       padding: 0;
       width: 400px;
       height: 365px;
-      background: #f7f7f7;
+      background: #f0f0f0;
       font-family: Arial, sans-serif;
       display: flex;
       align-items: center;
@@ -26,52 +27,32 @@
     }
 
     button {
-      width: 250px;
+      display: block;
+      width: 260px;
+      margin: 10px auto;
       padding: 10px;
-      margin: 10px;
       font-size: 14px;
       background-color: #0072ce;
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 5px;
       cursor: pointer;
     }
 
-    button:disabled {
-      background-color: #bbb;
-      cursor: not-allowed;
+    button:hover {
+      background-color: #005fa3;
     }
   </style>
 </head>
 <body>
+
   <div class="container">
     <h2>Client Shortcuts</h2>
-    <button id="btnRewards" disabled>Open Rewards</button>
-    <button id="btnSettings" disabled>Open Settings</button>
-    <button id="btnLobby" disabled>Open Tournament Lobby</button>
-    <p style="font-size: 11px;">Waiting for client to attach <code>nodeClient</code>...</p>
+
+    <button onclick="nodeClient.onClickRewards()">Open Rewards</button>
+    <button onclick="nodeClient.onClickSettings()">Open Settings</button>
+    <button onclick="nodeClient.openTournamentLobby('Scheduled', 37005284)">Open Tournament Lobby</button>
   </div>
 
-  <script>
-    function enableButtons() {
-      const rewardsBtn = document.getElementById('btnRewards');
-      const settingsBtn = document.getElementById('btnSettings');
-      const lobbyBtn = document.getElementById('btnLobby');
-
-      if (window.nodeClient) {
-        rewardsBtn.disabled = false;
-        settingsBtn.disabled = false;
-        lobbyBtn.disabled = false;
-
-        rewardsBtn.onclick = () => nodeClient.onClickRewards?.();
-        settingsBtn.onclick = () => nodeClient.onClickSettings?.();
-        lobbyBtn.onclick = () => nodeClient.openTournamentLobby?.("Scheduled", 37005284);
-      } else {
-        setTimeout(enableButtons, 500); // retry until nodeClient is injected
-      }
-    }
-
-    enableButtons();
-  </script>
 </body>
 </html>
