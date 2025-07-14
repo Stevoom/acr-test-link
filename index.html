@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>ACR Client Launcher</title>
   <style>
     html, body {
@@ -47,17 +47,26 @@
       color: #777;
     }
   </style>
+  <script type="text/javascript" src="./wpn_client.js"></script>
   <script>
     function openTournament() {
-      nodeClient.openTournamentLobby("Scheduled", 37002969);
+      if (window.nodeClient?.nodeClient?.openTournamentLobby) {
+        window.nodeClient.nodeClient.openTournamentLobby("Scheduled", 37002969);
+      } else {
+        console.error("Tournament handler not found");
+      }
     }
 
     function openSettings() {
-      window.parent.postMessage({ method: "openSettings" }, "*");
+      if (window.nodeClient?.nodeClient) {
+        window.nodeClient.nodeClient.onClickSettings?.(); // if defined
+      }
     }
 
     function openRewards() {
-      window.parent.postMessage({ method: "openRewards" }, "*");
+      if (window.nodeClient?.nodeClient) {
+        window.nodeClient.nodeClient.onClickRewards?.(); // if defined
+      }
     }
   </script>
 </head>
@@ -70,7 +79,7 @@
     <button class="btn" onclick="openRewards()">Open Rewards</button>
 
     <div class="note">
-      These buttons use <code>nodeClient</code> API to interact with the ACR client directly.
+      Buttons use client-injected API: <code>nodeClient.nodeClient</code>
     </div>
   </div>
 </body>
