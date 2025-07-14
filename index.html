@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>ACR Custom Protocol Test</title>
+  <title>ACR Client Launcher</title>
   <style>
     html, body {
       width: 400px;
@@ -34,7 +34,6 @@
       background-color: #0072ce;
       border: none;
       border-radius: 6px;
-      text-decoration: none;
       cursor: pointer;
     }
 
@@ -48,22 +47,30 @@
       color: #777;
     }
   </style>
+  <script>
+    function openTournament() {
+      nodeClient.openTournamentLobby("Scheduled", 37002969);
+    }
+
+    function openSettings() {
+      window.parent.postMessage({ method: "openSettings" }, "*");
+    }
+
+    function openRewards() {
+      window.parent.postMessage({ method: "openRewards" }, "*");
+    }
+  </script>
 </head>
 <body>
   <div class="container">
     <h2>Client Shortcut Test</h2>
 
-    <!-- Tournament Lobby (via Tournament ID) -->
-    <a class="btn" href="americascardroom://tournament?id=37002969" target="_top">Open Tournament Lobby</a>
-
-    <!-- Settings -->
-    <a class="btn" href="americascardroom://settings" target="_top">Open Settings</a>
-
-    <!-- Rewards -->
-    <a class="btn" href="americascardroom://rewards" target="_top">Open Rewards</a>
+    <button class="btn" onclick="openTournament()">Open Tournament Lobby</button>
+    <button class="btn" onclick="openSettings()">Open Settings</button>
+    <button class="btn" onclick="openRewards()">Open Rewards</button>
 
     <div class="note">
-      Buttons will launch ACR client and open the selected page.
+      These buttons use <code>nodeClient</code> API to interact with the ACR client directly.
     </div>
   </div>
 </body>
