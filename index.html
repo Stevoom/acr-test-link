@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ACR Client Action Buttons</title>
-  <script type="text/javascript" src="./wpn_client.min.js"></script>
+  <title>ACR Custom Protocol Launcher</title>
   <style>
     html, body {
       margin: 0;
@@ -19,11 +18,6 @@
 
     .container {
       text-align: center;
-    }
-
-    h2 {
-      font-size: 16px;
-      margin-bottom: 20px;
     }
 
     button {
@@ -42,17 +36,43 @@
     button:hover {
       background-color: #005fa3;
     }
+
+    iframe {
+      display: none;
+    }
+
+    .info {
+      font-size: 12px;
+      color: gray;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h2>Client Shortcuts</h2>
+<div class="container">
+  <h2>Client Shortcuts</h2>
 
-    <button onclick="americascardroom://settings()">Open Settings</button>
-    <button onclick="americascardroom://ticketmanager()">Open Ticket Manager</button>
-    <button onclick="nodeClient.openTournamentLobby('Scheduled', 37005284)">Open Tournament Lobby</button>
-  </div>
+  <button onclick="triggerProtocol('americascardroom://rewards')">Open Rewards</button>
+  <button onclick="triggerProtocol('americascardroom://settings')">Open Settings</button>
+  <button onclick="triggerProtocol('americascardroom://play?tournamentId=37005284')">Open Tournament Lobby</button>
+
+  <div class="info">Works only in ACR Desktop Client</div>
+</div>
+
+<script>
+  function triggerProtocol(url) {
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = url;
+    document.body.appendChild(iframe);
+
+    // Clean up after 2 seconds to avoid iframe bloat
+    setTimeout(() => {
+      document.body.removeChild(iframe);
+    }, 2000);
+  }
+</script>
 
 </body>
 </html>
