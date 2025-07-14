@@ -47,29 +47,39 @@
       color: #777;
     }
   </style>
+
+  <!-- WPN client injection script -->
   <script type="text/javascript" src="./wpn_client.js"></script>
+
   <script>
+    const nc = window.nodeClient;
+
     function openTournament() {
-      if (window.nodeClient?.nodeClient?.openTournamentLobby) {
-        window.nodeClient.nodeClient.openTournamentLobby("Scheduled", 37002969);
+      if (nc?.openTournamentLobby) {
+        nc.openTournamentLobby("Scheduled", 37002969);
       } else {
         console.error("Tournament handler not found");
       }
     }
 
     function openSettings() {
-      if (window.nodeClient?.nodeClient) {
-        window.nodeClient.nodeClient.onClickSettings?.(); // if defined
+      if (nc?.onClickSettings) {
+        nc.onClickSettings();
+      } else {
+        console.warn("Settings handler not available");
       }
     }
 
     function openRewards() {
-      if (window.nodeClient?.nodeClient) {
-        window.nodeClient.nodeClient.onClickRewards?.(); // if defined
+      if (nc?.onClickRewards) {
+        nc.onClickRewards();
+      } else {
+        console.warn("Rewards handler not available");
       }
     }
   </script>
 </head>
+
 <body>
   <div class="container">
     <h2>Client Shortcut Test</h2>
@@ -79,7 +89,7 @@
     <button class="btn" onclick="openRewards()">Open Rewards</button>
 
     <div class="note">
-      Buttons use client-injected API: <code>nodeClient.nodeClient</code>
+      Buttons use <code>nodeClient</code> to trigger client-side actions.
     </div>
   </div>
 </body>
